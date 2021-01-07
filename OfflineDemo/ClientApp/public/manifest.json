@@ -1,15 +1,19 @@
 {
-  "short_name": "OfflineDemo",
-  "name": "OfflineDemo",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
-  ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+    "short_name": "OfflineDemo",
+    "name": "Offline Demo",
+    "description": "A PWA demo",
+    "icons": [
+        {
+            "src": "/images/OfflineDemo-icon-192.png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/images/OfflineDemo-icon-512.png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#102C43",
+    "background_color": "#ffffff"
 }
