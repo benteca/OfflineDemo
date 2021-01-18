@@ -1,16 +1,24 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Route } from 'react-router';
+import PubSub from 'pubsub-js';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
+import { CheckForNewServiceWorkerTopic } from './utilities/SubjectTopics';
 
 import './custom.css'
 
-export default class App extends Component {
-  static displayName = App.name;
+function App() {  
 
-  render () {
+    useEffect(() => {
+        PubSub.publish(CheckForNewServiceWorkerTopic);
+        const versionTimer = setInterval(() => PubSub.publish(CheckForNewServiceWorkerTopic), 600000);
+
+        return () => clearInterval(versionTimer);
+    }, []); 
+   
+  
     return (
       <Layout>
         <Route exact path='/' component={Home} />
@@ -18,5 +26,7 @@ export default class App extends Component {
         <Route path='/fetch-data' component={FetchData} />
       </Layout>
     );
-  }
+    
 }
+
+export default App;

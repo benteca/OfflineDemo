@@ -28,4 +28,4 @@ This is the bare minimum that needs to be in place so the browser will interpret
 
 ## Sources
 
-https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps
+<https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps>

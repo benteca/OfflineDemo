@@ -12,3 +12,36 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.new-version-container {
+	z-index: 1000;
+	position: relative;
+	width: 100%;
+}
+
+	.new-version-container .new-version-content {
+		height: 46px !important;
+		font-size: 22px;
+		max-width: 1366px;
+		height: 100%;
+		margin: 0 auto;
+		background-color: #D6ECE2;
+		display: grid;
+		align-items: center;
+		grid-template-columns: 66px 1fr 66px;
+	}
+
+		.new-version-container .new-version-content .new-version-content-text {
+			grid-column: 2;
+			justify-self: center;
+		}
+
+			.new-version-container .new-version-content .new-version-content-text .new-version-update {
+				color: #007D97;
+				cursor: pointer;
+			}
+
+		.new-version-container .new-version-content .new-version-close {
+			grid-column: 3;
+			justify-self: center;
+		}
