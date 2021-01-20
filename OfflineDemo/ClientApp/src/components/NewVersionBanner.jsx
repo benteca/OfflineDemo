@@ -43,7 +43,6 @@ class NewVersionBanner extends React.Component {
 
         if (this.state.serviceWorkerToInstall) {
             //Waiting service worker found, showing new version banner
-            console.log('Ready to show new version banner');
             this.setState({
                 isNewVersionAvailable: true,
                 showNewVersionAvailable: true

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { Route } from 'react-router';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import PubSub from 'pubsub-js';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 import { CheckForNewServiceWorkerTopic } from './utilities/SubjectTopics';
+import RouteOnlineOnly from './components/RouterOnlineOnly.jsx';
 
 import './custom.css'
 
@@ -20,11 +21,13 @@ function App() {
    
   
     return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-      </Layout>
+        <Router>
+            <Layout>
+                <Route exact path='/' component={Home} />
+                <Route path='/counter' component={Counter} />
+                <RouteOnlineOnly path='/fetch-data' component={FetchData} />
+            </Layout>
+        </Router>
     );
     
 }

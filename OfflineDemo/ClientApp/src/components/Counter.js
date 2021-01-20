@@ -4,15 +4,19 @@ export class Counter extends Component {
   static displayName = Counter.name;
 
   constructor(props) {
-    super(props);
-    this.state = { currentCount: 0 };
+      super(props);
+      var initialCount = parseInt(localStorage.getItem('counter'));
+    this.state = { currentCount: initialCount };
     this.incrementCounter = this.incrementCounter.bind(this);
   }
 
   incrementCounter() {
     this.setState({
-      currentCount: this.state.currentCount + 1
+        currentCount: this.state.currentCount + 1        
+    }, () => {
+        localStorage.setItem('counter', this.state.currentCount);
     });
+     
   }
 
   render() {
