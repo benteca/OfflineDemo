@@ -1,5 +1,8 @@
-﻿################################################################################
+﻿ ################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
 /.vs/OfflineDemo/config/debuggerConfiguration-f92b1ef4-d9ad-492d-aa89-0491f4f5bac5.json
+*.ncrunchsolution.user
+.vs/
+*.suo
