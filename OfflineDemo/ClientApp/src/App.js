@@ -5,6 +5,7 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
+import Offline from './components/Offline.jsx';
 import { CheckForNewServiceWorkerTopic } from './utilities/SubjectTopics';
 import RouteOnlineOnly from './components/RouterOnlineOnly.jsx';
 
@@ -26,6 +27,7 @@ function App() {
                 <Route exact path='/' component={Home} />
                 <Route path='/counter' component={Counter} />
                 <RouteOnlineOnly path='/fetch-data' component={FetchData} />
+                <Route path='/offline' component={Offline} />
             </Layout>
         </Router>
     );

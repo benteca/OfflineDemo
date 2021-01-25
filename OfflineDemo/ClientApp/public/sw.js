@@ -1,12 +1,13 @@
-﻿var staticCacheName = 'offlineDemo-static-v21';
+﻿var staticCacheName = 'offlineDemo-static-v6';
+var dynamicCacheName = 'offlineDemo-dynamic-v6';
 
 const assets = [
     '/',
     '/counter',
+    '/offline',
     'manifest.json',
     '/static/js/main.js',
     '/static/js/main.chunk.js',
-    '/static/js/0.chunk.js',
     '/static/js/bundle.js',
     '/static/js/bundle.js.map',
     '/images/OfflineDemo-icon-192.png',
@@ -18,7 +19,11 @@ self.addEventListener('install', evt => {
         caches.open(staticCacheName)
             .then(cache => {
                 cache.addAll(assets);
-            }));
+            })
+            .then(() => {
+                caches.open(dynamicCacheName);
+            })
+    );
 });
 
 self.addEventListener('activate', evt => {
@@ -26,7 +31,7 @@ self.addEventListener('activate', evt => {
     evt.waitUntil(
         caches.keys().then(keys => {
             return Promise.all(keys
-                .filter(key => key !== staticCacheName)
+                .filter(key => key !== staticCacheName && key !== dynamicCacheName)
                 .map(key => caches.delete(key))
             )
         })
@@ -34,19 +39,28 @@ self.addEventListener('activate', evt => {
 });
 
 this.addEventListener('fetch', function (event) {
-    console.log('fetching: ', event);
+    //console.log('fetching: ', event);
 
     event.respondWith((async () => {
         try {
-            const staticCache = await caches.open(staticCacheName);
-            const cacheMatch = await staticCache.match(event.request);
+            const cacheMatch = await caches.match(event.request);
 
             if (cacheMatch) {
                 return cacheMatch;
             }
 
-            return await fetch(event.request);
+            var fetchResult = await fetch(event.request);
+
+            if (fetchResult) {
+                const resultClone = fetchResult.clone();
+
+                const dynamicCache = await caches.open(dynamicCacheName);
+                await dynamicCache.put(event.request, resultClone);
+            }
+
+            return fetchResult;
         } catch (error) {
+
             if (event.request.url.search('counter')) {
                 const counterCacheMatch = await caches.match('/counter');
 
@@ -70,7 +84,8 @@ this.addEventListener('fetch', function (event) {
     })());
 });
 
-self.addEventListener('message', messageEvent => {    
+
+self.addEventListener('message', messageEvent => {
     if (messageEvent &&
         messageEvent.data &&
         messageEvent.data.type === 'SKIP_WAITING') {
